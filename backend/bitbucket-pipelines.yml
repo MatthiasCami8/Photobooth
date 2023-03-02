@@ -1,0 +1,35 @@
+image: python:3.6
+pipelines:
+  default:
+    - parallel:
+        - step:
+            name: bandit
+            caches:
+              - pip
+            script:
+              - pip install $(cat requirements.txt | grep bandit)
+              - bandit -r .
+        - step:
+            name: pylint
+            caches:
+              - pip
+            script:
+              - pip install $(cat requirements.txt | grep pylint)
+              - python pylint.py --modules-file pylint-modules
+        - step:
+            name: license_check
+            script:
+              - apt-get update && apt-get install -y
+              - apt-get install jq -y
+              - export ACCESS_TOKEN=$(curl -s -X POST -u "$OAUTH_CLIENT_KEY:$OAUTH_CLIENT_SECRET"
+                https://bitbucket.org/site/oauth2/access_token -d grant_type=client_credentials
+                -d scopes="repository" | jq --raw-output ".access_token")
+              - pip install --upgrade
+                git+https://x-token-auth:$ACCESS_TOKEN@bitbucket.org/ml6team/license-checker.git
+              - for module in `cat pylint-modules`;
+                do
+                    pushd ${module};
+                    pip install -r requirements.txt;
+                    license_check -r requirements.txt;
+                    popd;
+                done
