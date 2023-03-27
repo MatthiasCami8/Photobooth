@@ -5,7 +5,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import ReplayIcon from "@mui/icons-material/Replay";
 import SouthIcon from "@mui/icons-material/South";
-import { Box, Fade, Grid, LinearProgress, Typography } from "@mui/material";
+import { Box, Grid, LinearProgress, Typography } from "@mui/material";
 import { logEvent } from "firebase/analytics";
 import { doc, onSnapshot, setDoc } from "firebase/firestore";
 import { ref, uploadString } from "firebase/storage";
@@ -112,10 +112,10 @@ const WebcamCapturePage = () => {
       contents,
       "data_url"
     )
-      .then((res) => {})
+      .then((res) => { })
       .catch((err) => {
         setError(true);
-        console.log(err);
+        console.error(err);
       });
   };
 
@@ -139,7 +139,7 @@ const WebcamCapturePage = () => {
         })
         .catch((err) => {
           setError(true);
-          console.log(err);
+          console.error(err);
         });
     }
   };

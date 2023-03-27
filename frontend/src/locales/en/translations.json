@@ -17,7 +17,8 @@
   "MachineLikesPicture": "The machine likes your picture! Are you happy with it too?",
   "RetakePicture": "Retake picture",
   "NoChosenImage": "You have not chosen an image yet. Press on any picture that you like to select it",
-  "YouChoseImage": "You've chosen the painting: @name",
+  "YouChosePainting": "You've chosen the painting: @name",
+  "YouChoseImage": "You've chosen: @name",
   "ChosenImage": "Chosen painting",
   "StartingProcess": "Starting the process...",
   "GettingThere": "Getting there...",
@@ -79,5 +80,4 @@
   "SelectPaintings": "Alternatively you can press on a visible painting to select it",
   "ScrollToSee": "Scroll to see them",
   "Selected": "Selected"
-
 }

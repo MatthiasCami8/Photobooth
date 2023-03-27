@@ -1,10 +1,9 @@
+import { logEvent, setUserId } from "firebase/analytics";
 import { getDownloadURL, ref } from "firebase/storage";
 import React from "react";
 import { useLocation, useParams } from "react-router-dom";
-import { storage_results } from "../../utils/firebase";
-import { logEvent, setUserId } from "firebase/analytics";
-import { analytics } from "../../utils/firebase";
 import { v4 as uuidv4 } from "uuid";
+import { analytics, storage_results } from "../../utils/firebase";
 
 const DownloadForwardPage = (props) => {
   const [error, setError] = React.useState(false);
@@ -39,7 +38,7 @@ const DownloadForwardPage = (props) => {
       })
       .catch((err) => {
         setError(error);
-        console.log(error);
+        console.error(error);
       });
   };
   return <React.Fragment />;

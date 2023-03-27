@@ -2,21 +2,18 @@ import "animate.css";
 
 import ClearIcon from "@mui/icons-material/Clear";
 import { Box, Grid, LinearProgress, Typography } from "@mui/material";
+import axios from "axios";
 import { logEvent } from "firebase/analytics";
 import { doc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
-import { ref, uploadString, getDownloadURL } from "firebase/storage";
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import axios from "axios";
 import {
   analytics,
-  db,
-  storage_source_pictures,
-  storage_swap_pictures,
-  storage_portraits_metadata,
-  storage_portraits,
+  db, storage_portraits, storage_portraits_metadata, storage_source_pictures,
+  storage_swap_pictures
 } from "../../utils/firebase";
 import BottomAppBar from "../layout/BottomAppBar";
 import HorizontalStepper from "../layout/HorizontalStepper";
@@ -83,7 +80,7 @@ const DeepFakePage = () => {
 
   React.useEffect(() => {
     loadPortrait().catch((err) => {
-      console.log(err);
+      console.error(err);
     });
   }, []);
 
@@ -92,11 +89,11 @@ const DeepFakePage = () => {
 
     updatePortraitPicture(document).catch((err) => {
       setError(true);
-      console.log(err);
+      console.error(err);
     });
     uploadToStorage(`${museum}/${source_image_id}`, "").catch((err) => {
       setError(true);
-      console.log(err);
+      console.error(err);
     });
     const unsubscribe = onSnapshot(document, (item) => {
       if (
@@ -151,12 +148,12 @@ const DeepFakePage = () => {
           })
           .catch((err) => {
             setError(true);
-            console.log(err);
+            console.error(err);
           });
       })
       .catch((err) => {
         setError(true);
-        console.log(err);
+        console.error(err);
       });
   };
 

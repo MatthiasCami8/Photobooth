@@ -1,6 +1,8 @@
 FROM gcr.io/deeplearning-platform-release/base-cpu
 LABEL maintainer="ML6"
 
+ENV PYTHONUNBUFFERED True
+
 RUN apt-get update
 RUN apt-get install ffmpeg libsm6 libxext6  -y
 
@@ -27,3 +29,4 @@ RUN unzip -o ./antelope.zip -d ./insightface_func/models/
 
 ENTRYPOINT ["python3"]
 CMD ["run.py"]
+#CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 run:app

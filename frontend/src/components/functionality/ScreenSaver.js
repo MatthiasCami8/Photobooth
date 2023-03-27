@@ -1,4 +1,4 @@
-import { Typography, Fade } from "@mui/material";
+import { Fade, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import ML6_logo from "../../assets/logos/ml6_logo.png";
@@ -9,7 +9,7 @@ const ScreenSaver = (props) => {
   const mx = 600;
   const my = 300;
   const animationInterval = 5000;
-  
+
   React.useEffect(() => {
     document.addEventListener("mousedown", props.onClick);
     return () => {

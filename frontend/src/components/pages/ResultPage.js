@@ -1,6 +1,7 @@
 import BrushIcon from "@mui/icons-material/Brush";
 import { Fade, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import axios from "axios";
 import { logEvent } from "firebase/analytics";
 import { doc, setDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
@@ -9,16 +10,10 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import axios from "axios";
 
 import {
   analytics,
-  db,
-  storage_source_pictures,
-  storage_swap_pictures,
-  storage_results,
-  storage_portraits_metadata,
-  storage_portraits,
+  db, storage_portraits, storage_portraits_metadata, storage_results, storage_source_pictures
 } from "../../utils/firebase";
 import BottomAppBar from "../layout/BottomAppBar";
 import HorizontalStepper from "../layout/HorizontalStepper";
@@ -90,7 +85,7 @@ const ResultPage = (props) => {
 
   React.useEffect(() => {
     loadPortrait().catch((err) => {
-      console.log(err);
+      console.error(err);
     });
   }, []);
 
@@ -109,7 +104,7 @@ const ResultPage = (props) => {
       })
       .catch((err) => {
         setError(error);
-        console.log(error);
+        console.error(error);
       });
   };
 
@@ -127,12 +122,12 @@ const ResultPage = (props) => {
           })
           .catch((err) => {
             setError(true);
-            console.log(err);
+            console.error(err);
           });
       })
       .catch((err) => {
         setError(true);
-        console.log(err);
+        console.error(err);
       });
   };
 
@@ -305,11 +300,11 @@ const ResultPage = (props) => {
                     includeMargin
                     style={{ marginTop: "8px" }}
                     value={shareURL}
-                    // imageSettings={{
-                    //   src: "https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco,dpr_1/tpxodgwzh1sg5eisv0wu",
-                    //   height: 25,
-                    //   width: 25,
-                    // }}
+                  // imageSettings={{
+                  //   src: "https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco,dpr_1/tpxodgwzh1sg5eisv0wu",
+                  //   height: 25,
+                  //   width: 25,
+                  // }}
                   />
 
                   <Typography

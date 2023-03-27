@@ -1,5 +1,4 @@
-import { React, useState } from "react";
-import { Box, Typography, Paper } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import QRCode from "qrcode.react";
 import { useTranslation } from "react-i18next";
 
@@ -10,7 +9,7 @@ const PrivacyPolicy = (props) => {
     <Box
       sx={{
         position: "fixed",
-        bottom: 50,
+        bottom: 60,
         left: 10,
       }}
     >
@@ -34,11 +33,11 @@ const PrivacyPolicy = (props) => {
         size={75}
         value={policyPage}
         includeMargin
-        // imageSettings={{
-        //   src: "https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco,dpr_1/tpxodgwzh1sg5eisv0wu",
-        //   height: 20,
-        //   width: 20,
-        // }}
+      // imageSettings={{
+      //   src: "https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco,dpr_1/tpxodgwzh1sg5eisv0wu",
+      //   height: 20,
+      //   width: 20,
+      // }}
       />
     </Box>
   );

@@ -12,6 +12,7 @@ from prediction import *
 from helpers.storage_helper import transfer_file, upload_blob
 from helpers.firestore_helper import set_faces_count, set_done, get_portrait_and_logo
 import logging
+import cv2
 
 
 def swap(source_file: str):
@@ -37,7 +38,7 @@ def swap(source_file: str):
         transfer_file(PORTRAIT_BUCKET, portrait_file, portrait_img_path)
 
     # Resize portrait
-    MAX_SIZE = (1280, 1280)
+    MAX_SIZE = (640, 960)
     image = Image.open(portrait_img_path)
     image.thumbnail(MAX_SIZE)
     image.save(portrait_img_path)
@@ -55,6 +56,28 @@ def swap(source_file: str):
 
     print(f'Uploading blob "{result_img_path}" to bucket "{RESULTS_BUCKET}"' + \
                  f'with name "{source_file}"')
+    
+    # Custom watermark
+    if logo == "axelera":
+        logo = cv2.imread("simswaplogo/Axelera_white.png")
+        img = cv2.imread(result_img_path)
+        h_logo, w_logo, _ = logo.shape
+        h_img, w_img, _ = img.shape
+        #print(f"Logo shape is {logo.shape} and image shape is {img.shape}")
+        
+        margin = 50
+        top_y = h_img - h_logo - margin
+        bottom_y = h_img - margin
+        left_x = margin
+        right_x = w_logo + margin
+        destination = img[top_y:bottom_y, left_x:right_x]
+        #print(f"Destination is {destination}")
+        #print(f"shape of destination is {destination.shape}")
+        result = cv2.addWeighted(destination, 1, logo, 0.6, 0)
+        
+        img[top_y:bottom_y, left_x:right_x] = result
+        cv2.imwrite(result_img_path, img)
+        
     upload_blob(RESULTS_BUCKET, result_img_path, source_file)
 
     file_paths = [result_img_path, source_img_path]

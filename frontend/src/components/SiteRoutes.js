@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import App from "../App";
 import NotFound from "./NotFound";
@@ -15,15 +15,14 @@ import WebcamCapturePage from "./pages/WebcamCapturePage";
 // import { analytics } from "../utils/firebase";
 
 const SiteRoutes = () => {
-  let location = useLocation();
-
   const endpoints = [
     "rijksmuseum",
     "stam",
     "nl",
     "be",
-    "vlaamsescriptieprijs",
-    "kmska",
+    // "vlaamsescriptieprijs",
+    // "kmska",
+    // "axelera"
   ];
   const renderApplicationRoutes = () => {
     return (
@@ -56,7 +55,7 @@ const SiteRoutes = () => {
       <Route path="result/download/:id" element={<DownloadForwardPage />} />
 
       {endpoints.map((endpoint) => (
-        <React.Fragment>
+        <React.Fragment key={endpoint}>
           <Route
             path={`${endpoint}/result/download/:id`}
             element={<DownloadForwardPage />}

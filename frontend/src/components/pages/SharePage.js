@@ -45,7 +45,7 @@ const SharePage = (props) => {
       })
       .catch((err) => {
         setError(error);
-        console.log(error);
+        console.error(error);
       });
   };
 

@@ -1,21 +1,23 @@
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import {
-  AppBar,
-  ButtonGroup,
+  AppBar, Button, ButtonGroup,
   Fab,
   Grid,
-  IconButton,
-  Button,
-  ToggleButton,
+  IconButton, ToggleButton,
   ToggleButtonGroup,
   Toolbar,
-  Typography,
+  Typography
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+
+import AxeleraLogo from "../../assets/logos/axelera_logo.png";
+import useEndpoint from "../../components/functionality/UseEndpoint";
+
+
 const StyledFabSingle = styled(Fab)({
   position: "absolute",
   zIndex: 1,
@@ -47,6 +49,8 @@ const BottomAppBar = (props) => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const [locale, setLocale] = React.useState(i18n.language);
+  const endpoint = useEndpoint();
+
 
   const handleLocale = (_, language) => {
     localStorage.setItem("locale", language);
@@ -121,6 +125,9 @@ const BottomAppBar = (props) => {
   };
   return (
     <AppBar position="fixed" color="primary" sx={{ top: "auto", bottom: 0 }}>
+      {endpoint === "axelera"
+        && <img src={AxeleraLogo} alt="Axelera logo" style={{ position: "absolute", top: -75, right: 30, width: "20%" }} />
+      }
       <Toolbar
         style={{
           paddingLeft: width < breakpoint ? 4 : 16,

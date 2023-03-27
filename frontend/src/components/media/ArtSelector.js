@@ -1,23 +1,16 @@
 import "animate.css";
 
 import {
-  Box,
-  Fade,
-  ImageList,
-  ImageListItem,
-  ImageListItemBar,
-  Skeleton,
-  Typography,
+  Box, ImageList,
+  ImageListItem, Skeleton
 } from "@mui/material";
-import QRCode from "qrcode.react";
-import { makeStyles } from "@mui/styles";
+import axios from "axios";
 import { getDownloadURL, listAll, ref } from "firebase/storage";
 import React from "react";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
 import {
   storage_portraits,
-  storage_portraits_metadata,
+  storage_portraits_metadata
 } from "../../utils/firebase";
 import { ImageItem } from "./ImageItem";
 
@@ -70,7 +63,7 @@ const ArtSelector = React.forwardRef((props, forwardRef) => {
 
   React.useEffect(() => {
     loadImages().catch((error) => {
-      console.log(error);
+      console.error(error);
     });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 

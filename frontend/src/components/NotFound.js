@@ -1,13 +1,10 @@
-import { React, useState } from "react";
-import { Box, Typography, Paper } from "@mui/material";
-import QRCode from "qrcode.react";
-import { useTranslation } from "react-i18next";
+import { Box, Typography } from "@mui/material";
 
-const NotFound = (props) => {
+const NotFound = () => {
   return (
     <Box>
-      <Typography variant="h1" align="center">
-        The route you requested is not valid
+      <Typography variant="h1" align="center" sx={{ color: "white" }}>
+        404 - Page not found
       </Typography>
     </Box>
   );

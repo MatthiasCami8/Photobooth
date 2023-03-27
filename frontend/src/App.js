@@ -1,33 +1,26 @@
 import "./locales/config";
 import "./style/app.scss";
-import "./style/app.scss";
 
 import { Container } from "@mui/material";
 import {
   createTheme,
   responsiveFontSizes,
-  ThemeProvider,
+  ThemeProvider
 } from "@mui/material/styles";
 import { logEvent } from "firebase/analytics";
-import {
-  collection,
-  getDocsFromServer,
-  limit,
-  orderBy,
-  query,
-  where,
-} from "firebase/firestore";
 import React from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useIdleTimer } from "react-idle-timer";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
+import AdminPanel from "./components/functionality/AdminPanel";
+import AxeleraScreensaver from "./components/functionality/AxeleraScreensaver";
 import IdleBackdrop from "./components/functionality/IdleBackdrop";
 import ScreenSaver from "./components/functionality/ScreenSaver";
+import useEndpoint from "./components/functionality/UseEndpoint";
 import TitleBar from "./components/layout/TitleBar";
 import PrivacyPolicy from "./components/PrivacyPolicy";
-import { analytics, db } from "./utils/firebase";
-import AdminPanel from "./components/functionality/AdminPanel";
+import { analytics } from "./utils/firebase";
 
 const theme = createTheme({
   typography: {
@@ -53,10 +46,10 @@ const App = (props) => {
   const location = useLocation();
   const [idle, setIdle] = React.useState(false);
   const [screenSaving, setScreenSaving] = React.useState(false);
-
   const [openAdminPanel, setOpenAdminPanel] = React.useState(false);
   const [width, setWidth] = React.useState(window.innerWidth);
   const breakpoint = 620;
+  const endpoint = useEndpoint();
 
   React.useEffect(() => {
     window.addEventListener("resize", () => setWidth(window.innerWidth));
@@ -152,7 +145,7 @@ const App = (props) => {
         return;
       }
     }
-    // setScreenSaving(true);
+    setScreenSaving(true);
   };
 
   const parseMuseum = (location) => {
@@ -197,7 +190,9 @@ const App = (props) => {
       })}
     >
       {screenSaving ? (
-        <ScreenSaver onClick={() => setScreenSaving(false)} />
+        endpoint === "axelera"
+          ? <AxeleraScreensaver onClick={() => setScreenSaving(false)} />
+          : <ScreenSaver onClick={() => setScreenSaving(false)} />
       ) : (
         <Container
           className={`App`}

@@ -11,6 +11,7 @@ import { useTranslation, withTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 import { analytics } from "../../utils/firebase";
+import useEndpoint from "../functionality/UseEndpoint";
 import BottomAppBar from "../layout/BottomAppBar";
 import HorizontalStepper from "../layout/HorizontalStepper";
 import ArtSelector from "../media/ArtSelector";
@@ -25,6 +26,8 @@ const SelectArtPage = () => {
   const [width, setWidth] = React.useState(window.innerWidth);
   const [height, setHeight] = React.useState(window.innerHeight);
   const breakpoint = 750;
+
+  const endpoint = useEndpoint();
 
   React.useEffect(() => {
     /* Inside of a "useEffect" hook add an event listener that updates
@@ -43,9 +46,14 @@ const SelectArtPage = () => {
     if (chosenImage) {
       return (
         <Box sx={{ mb: 4 }}>
-          <Typography variant="h5" align="center" sx={{ mt: 2 }}>
-            {t("YouChoseImage").replace("@name", chosenImage.title)}
-          </Typography>
+          {endpoint === "axelera"
+            ? <Typography variant="h5" align="center" sx={{ mt: 2 }}>
+              {t("YouChoseImage").replace("@name", chosenImage.title)}
+            </Typography>
+            : <Typography variant="h5" align="center" sx={{ mt: 2 }}>
+              {t("YouChosePainting").replace("@name", chosenImage.title)}
+            </Typography>
+          }
           {height > breakpoint ? (
             <React.Fragment>
               <Typography variant="h5" align="center" sx={{ mt: 2 }}>

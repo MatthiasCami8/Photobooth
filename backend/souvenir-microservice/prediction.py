@@ -99,8 +99,12 @@ def swap_many_to_many_faces_pipeline(target_url, source_url, result_img_path, lo
   with timer('encode source face'): latent_ids = encode_face_id_multi(source_url)
   with timer('swap faces'): img_b_whole, b_align_crop_tensor_list, b_mat_list, swap_result = swap_many_to_many_faces(target_url, latent_ids)
 
+  logo_swap = False
   if logo == "kmska":
       logoclass = watermark_image('./simswaplogo/kmska_logo.png', size=0.45)
+  elif logo == "axelera":
+      logoclass = None
+      logo_swap = True
   else:
       logoclass = watermark_image('./simswaplogo/ml6_logo.png', size=0.25)
   # elif logo == "ml6_youseum":
@@ -113,7 +117,7 @@ def swap_many_to_many_faces_pipeline(target_url, source_url, result_img_path, lo
                                 img_b_whole,
                                 logoclass,
                                 result_img_path,
-                                False,
+                                logo_swap,
                                 pasring_model=bi_se_net,
                                 use_mask=True,
                                 norm = spNorm)
